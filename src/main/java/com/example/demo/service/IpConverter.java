@@ -1,4 +1,4 @@
-package service;
+package com.example.demo.service;
 
 public class IpConverter {
     public static int longToInt32(long value) {

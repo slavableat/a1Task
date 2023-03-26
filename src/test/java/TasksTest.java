@@ -1,6 +1,6 @@
 import org.junit.Test;
-import service.FunctionCalculator;
-import service.IpConverter;
+import com.example.demo.service.FunctionCalculator;
+import com.example.demo.service.IpConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,29 +26,23 @@ public class TasksTest {
 
     @Test
     public void checkInt32ToIPv4() {
-        int32AndIPv4.forEach((int32, iPv4) -> {
-            assertEquals(
-                    IpConverter.int32ToIp(int32),
-                    iPv4);
-        });
+        int32AndIPv4.forEach((int32, iPv4) -> assertEquals(
+                IpConverter.int32ToIp(int32),
+                iPv4));
     }
 
     @Test
     public void checkIPv4ToInt32() {
-        int32AndIPv4.forEach((int32, iPv4) -> {
-            assertEquals(
-                    IpConverter.ipToInt32(iPv4),
-                    IpConverter.int32ToLong(int32));
-        });
+        int32AndIPv4.forEach((int32, iPv4) -> assertEquals(
+                IpConverter.ipToInt32(iPv4),
+                IpConverter.int32ToLong(int32)));
     }
 
     @Test
     public void checkSecondTask() {
-        parameterAndValue.forEach((parameter, expected) -> {
-            assertEquals(
-                    FunctionCalculator.getYByX(parameter).toString(),
-                    expected
-            );
-        });
+        parameterAndValue.forEach((parameter, expected) -> assertEquals(
+                FunctionCalculator.getYByX(parameter).toString(),
+                expected
+        ));
     }
 }
