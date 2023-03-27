@@ -9,10 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class LoginDTO {
-    private String applicationTitle;
-    private String accountName;
-    private Boolean isActive;
-    private String jobTitle;
-    private String departmentTitle;
+public class ItemDTO {
+    private String materialDescription;
+    private Long quantity;
+    private String BUn;
+    private String crcy;
+    private Double amount;
+    private Long ordinalNumber;
 }

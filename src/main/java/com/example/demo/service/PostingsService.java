@@ -20,7 +20,7 @@ public class PostingsService {
     static int USERNAME_ORDINAL_NUMBER = 9;
 
     public static void execute() throws IOException {
-        parseLoginsFile();
+        setAccountsToMapFromLogins();
 
         changePostingsFile();
     }
@@ -64,7 +64,7 @@ public class PostingsService {
         writer.close();
     }
 
-    private static void parseLoginsFile() {
+    private static void setAccountsToMapFromLogins() {
         try (CSVReader fileReader = new CSVReader(new FileReader(LOGINS_FILE_PATH), '\t', CSVWriter.NO_QUOTE_CHARACTER, CSVWriter.NO_ESCAPE_CHARACTER)) {
             fileReader.readNext();
             String[] line;

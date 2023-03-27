@@ -18,14 +18,15 @@ import java.util.List;
 @AllArgsConstructor
 public class Posting {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToMany(targetEntity = Item.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_item")
-    private List<Item> item = new ArrayList<>();
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
-    private User user;
-    @Column(name = "date", columnDefinition = "DATE")
-    private LocalDate date;
+    private Long matDoc;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_account")
+    private Account account;
+    private Boolean isAuthorized;
+    @OneToMany(mappedBy = "posting",targetEntity = Item.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Item> items = new ArrayList<>();
+    @Column(name = "doc_date", columnDefinition = "DATE")
+    private LocalDate docDate;
+    @Column(name = "posting_date", columnDefinition = "DATE")
+    private LocalDate postingDate;
 }
