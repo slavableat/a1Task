@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/logins")
 public class LoginController {
     private final LoginService loginService;
 
@@ -20,6 +20,11 @@ public class LoginController {
         this.loginService = loginService;
     }
 
+    @GetMapping("/init")
+    public ResponseEntity initTable(){
+        loginService.initTable();
+        return ResponseEntity.ok().build();
+    }
     @GetMapping
     public ResponseEntity<List<Login>> getAll(){
         return ResponseEntity.ok(loginService.getAll());

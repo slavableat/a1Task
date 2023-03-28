@@ -34,7 +34,7 @@ public class LoginService {
         this.departmentRepository = departmentRepository;
     }
 
-    private void initTable() {
+    public void initTable() {
         List<LoginDTO> loginDTOS = getLoginDTOs();
         loginDTOS.forEach(this::saveLoginIntoDataBase);
     }

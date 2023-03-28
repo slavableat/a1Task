@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ public class PostingService {
     private final PostingRepository postingRepository;
     private final PostingMapper postingMapper;
     Map<Long, PostingDTO> postings = new HashMap<>();
+    DateTimeFormatter formatters = DateTimeFormatter.ofPattern("d.MM.uuuu");
 
     @Autowired
     public PostingService(PostingRepository postingRepository, PostingMapper postingMapper) {
@@ -39,6 +42,24 @@ public class PostingService {
                 .collect(Collectors.toList());
     }
 
+    public List<PostingDTO> getAllBetween(String startDate, String endDate, String authorized) {
+        LocalDate start = LocalDate.parse(startDate, formatters);
+        LocalDate end = LocalDate.parse(endDate, formatters);
+        if(authorized == null){
+            List<Posting> postings = postingRepository.findByPostingDateBetween(start, end);
+            return postings.stream()
+                    .map(postingMapper::postingDtoFromPosting)
+                    .collect(Collectors.toList());
+        }else{
+            Boolean isAuthorized = Boolean.parseBoolean(authorized);
+            List<Posting> postings = postingRepository.findByPostingDateBetweenAndIsAuthorized(start, end, isAuthorized);
+            return postings.stream()
+                    .map(postingMapper::postingDtoFromPosting)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
     //TODO initial state of postings
     public void initTable() {
         List<PostingDTO> postingDTOs = getPostingDTOs();
